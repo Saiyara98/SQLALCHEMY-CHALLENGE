@@ -66,8 +66,8 @@ def stations():
 def tobs():
     ld = session.query(Measurement.date).order_by(Measurement.date.desc()).first()
     ld = dt.datetime.strptime(ld[0], '%Y-%m-%d')
-    one_year_ago = ld - dt.timedelta(days=365)
-    tob_results = session.query(Measurement.date, Measurement.tobs).filter(Measurement.date >= one_year_ago).all()
+    oya = ld - dt.timedelta(days=365)
+    tob_results = session.query(Measurement.date, Measurement.tobs).filter(Measurement.date >= oya).all()
     t_data = [{"date": date, "tobs": tobs} for date, tobs in tob_results]
     return jsonify(t_data)
 
